@@ -1,26 +1,45 @@
-# Project Empty Template
+# Avaliação Técnica - Gerador de Arquivos TXT
 
-Este é um repositório de exemplo para você começar a desenvolver a questão, leia com atenção os requisitos do enunciado da questão na plataforma e seguia as boas práticas sobre como utilizar este repositório.
+Projeto desenvolvido como parte de um desafio técnico, com o objetivo de evoluir um gerador de arquivos TXT baseado em dados de um arquivo JSON, suportando múltiplas versões de leiaute.
 
+## Funcionalidades
 
-## Readme do Repositório
+* Geração do Leiaute 1
+* Geração do Leiaute 2
+* Seleção da versão do leiaute via console
+* Validação da soma dos itens do documento
+* Geração das linhas 09 (total por tipo de registro)
+* Geração da linha 99 (total de linhas do arquivo)
+* Testes unitários utilizando NUnit
 
-- Deve conter o título do projeto
-- Uma descrição sobre o projeto em frase
-- Deve conter uma lista com linguagem, framework e/ou tecnologias usadas
-- Como instalar e usar o projeto (instruções)
-- Não esqueça o [.gitignore](https://www.toptal.com/developers/gitignore)
-- Se está usando github pessoal, referencie que é um challenge by coodesh:  
+## Tecnologias
 
->  This is a challenge by [Coodesh](https://coodesh.com/)
+* C#
+* .NET Framework 4.8
+* Newtonsoft.Json
+* NUnit
 
-## Finalização e Instruções para a Apresentação
+## Como executar
 
-1. Adicione o link do repositório com a sua solução na questão na plataforma
-2. Verifique se o Readme está bom e faça o commit final em seu repositório;
-3. Envie e aguarde as instruções para seguir. Caso o teste tenha apresentação de vídeo, dentro da tela de entrega será possível gravar após adicionar o link do repositório. Sucesso e boa sorte. =)
+1. Clone o repositório.
+2. Abra a solution `AvaliacaoDotnet.sln`.
+3. Compile o projeto.
+4. Execute a aplicação.
+5. Configure o caminho do arquivo JSON.
+6. Configure o diretório de saída.
+7. Escolha a versão do leiaute desejada para gerar o arquivo.
 
+## Executando os testes
 
-## Suporte
+```bash
+dotnet test
+```
 
-Para tirar dúvidas sobre o processo envie uma mensagem diretamente a um especialista no chat da plataforma. 
+## Estrutura do projeto
+
+* **ConsoleApp1**: aplicação principal responsável pela geração dos arquivos.
+* **AvaliacaoDotnet.Tests**: testes unitários utilizando NUnit.
+
+## Challenge
+
+This is a challenge by Coodesh: https://coodesh.com/
