@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.IO;
 using System.Text;
 
@@ -13,21 +14,40 @@ namespace GeradorTxt
     /// </summary>
     public class GeradorArquivoBase
     {
-        public void Gerar(List<Empresa> empresas, string outputPath)
+        protected ContadorLinhas Contador;
+
+        public virtual void Gerar(List<Empresa> empresas, string outputPath)
         {
             var sb = new StringBuilder();
+            Contador = new ContadorLinhas();
+
             foreach (var emp in empresas)
             {
                 EscreverTipo00(sb, emp);
+                Contador.Registrar("00");
+
                 foreach (var doc in emp.Documentos)
                 {
+                    var somaItens = doc.Itens.Sum(i => i.Valor);
+
+                    if (somaItens != doc.Valor)
+                    {
+                        throw new Exception($"O documento {doc.Numero} possui valor inválido.");
+                    }
+
                     EscreverTipo01(sb, doc);
+                    Contador.Registrar("01");
+
                     foreach (var item in doc.Itens)
                     {
                         EscreverTipo02(sb, item);
+                        Contador.Registrar("02");
                     }
                 }
             }
+
+            Contador.EscreverResumo(sb);
+            
             File.WriteAllText(outputPath, sb.ToString(), Encoding.UTF8);
         }
 
@@ -37,7 +57,7 @@ namespace GeradorTxt
             return val.ToString("0.00", CultureInfo.InvariantCulture);
         }
 
-        protected void EscreverTipo00(StringBuilder sb, Empresa emp)
+        protected virtual void EscreverTipo00(StringBuilder sb, Empresa emp)
         {
             // 00|CNPJEMPRESA|NOMEEMPRESA|TELEFONE
             sb.Append("00").Append("|")
@@ -46,7 +66,7 @@ namespace GeradorTxt
               .Append(emp.Telefone).AppendLine();
         }
 
-        protected void EscreverTipo01(StringBuilder sb, Documento doc)
+        protected virtual void EscreverTipo01(StringBuilder sb, Documento doc)
         {
             // 01|MODELODOCUMENTO|NUMERODOCUMENTO|VALORDOCUMENTO
             sb.Append("01").Append("|")
@@ -55,7 +75,7 @@ namespace GeradorTxt
               .Append(ToMoney(doc.Valor)).AppendLine();
         }
 
-        protected void EscreverTipo02(StringBuilder sb, ItemDocumento item)
+        protected virtual void EscreverTipo02(StringBuilder sb, ItemDocumento item)
         {
             // 02|DESCRICAOITEM|VALORITEM
             sb.Append("02").Append("|")

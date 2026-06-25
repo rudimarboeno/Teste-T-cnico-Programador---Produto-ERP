@@ -52,6 +52,8 @@
     <Compile Include="GeradorTxt\GeradorArquivoBase.cs" />
     <Compile Include="GeradorTxt\JsonRepository.cs" />
     <Compile Include="GeradorTxt\MainConsole.cs" />
+    <Compile Include="GeradorTxt\GeradorArquivoV2.cs" />
+    <Compile Include="GeradorTxt\ContadorLinhas.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
