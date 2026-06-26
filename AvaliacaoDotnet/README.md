@@ -37,7 +37,7 @@ dotnet test
 
 ## Estrutura do projeto
 
-* **ConsoleApp1**: aplicação principal responsável pela geração dos arquivos.
+* **AvaliacaoDotnet**: aplicação principal responsável pela geração dos arquivos.
 * **AvaliacaoDotnet.Tests**: testes unitários utilizando NUnit.
 
 ## Challenge
