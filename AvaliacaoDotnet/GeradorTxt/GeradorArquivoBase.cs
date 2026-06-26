@@ -16,9 +16,10 @@ namespace GeradorTxt
     {
         protected ContadorLinhas Contador;
 
-        public virtual void Gerar(List<Empresa> empresas, string outputPath)
+        public void Gerar(List<Empresa> empresas, string outputPath)
         {
             var sb = new StringBuilder();
+            
             Contador = new ContadorLinhas();
 
             foreach (var emp in empresas)
@@ -28,27 +29,37 @@ namespace GeradorTxt
 
                 foreach (var doc in emp.Documentos)
                 {
-                    var somaItens = doc.Itens.Sum(i => i.Valor);
-
-                    if (somaItens != doc.Valor)
-                    {
-                        throw new Exception($"O documento {doc.Numero} possui valor inválido.");
-                    }
+                    ValidarDocumento(doc);
 
                     EscreverTipo01(sb, doc);
                     Contador.Registrar("01");
 
-                    foreach (var item in doc.Itens)
-                    {
-                        EscreverTipo02(sb, item);
-                        Contador.Registrar("02");
-                    }
+                    EscreverItens(sb, doc);
                 }
             }
 
             Contador.EscreverResumo(sb);
             
             File.WriteAllText(outputPath, sb.ToString(), Encoding.UTF8);
+        }
+
+        protected virtual void EscreverItens(StringBuilder sb, Documento doc)
+        {
+            foreach (var item in doc.Itens)
+            {
+                EscreverTipo02(sb, item);
+                Contador.Registrar("02");
+            }
+        }
+
+        protected virtual void ValidarDocumento(Documento doc)
+        {
+            var somaItens = doc.Itens.Sum(x => x.Valor);
+
+            if (somaItens != doc.Valor)
+            {
+                throw new Exception($"O documento {doc.Numero} possui valor inválido.");
+            }
         }
 
         protected string ToMoney(decimal val)

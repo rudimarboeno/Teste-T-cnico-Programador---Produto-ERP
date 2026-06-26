@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AvaliacaoDotnet.csproj" />
+    <ProjectReference Include="..\AvaliacaoDotnet\AvaliacaoDotnet.csproj" />
   </ItemGroup>
 
 </Project>

@@ -52,3 +52,12 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+
+# Visual Studio
+*.user
+
+# DLLs locais
+*.dll
+
+# Arquivos gerados pelo sistema
+out/

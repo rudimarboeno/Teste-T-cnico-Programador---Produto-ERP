@@ -11,6 +11,7 @@ namespace AvaliacaoDotnet.Tests
         [Test]
         public void DeveGerarArquivoLeiaute1()
         {
+            // Arrange
             var empresas = new List<Empresa>
             {
                 new Empresa
@@ -38,12 +39,14 @@ namespace AvaliacaoDotnet.Tests
                 }
             };
 
+            // Act
             var arquivo = Path.GetTempFileName();
 
             var gerador = new GeradorArquivoBase();
 
             gerador.Gerar(empresas, arquivo);
-
+    
+            // Assert
             Assert.That(File.Exists(arquivo), Is.True);
 
             File.Delete(arquivo);
@@ -52,6 +55,7 @@ namespace AvaliacaoDotnet.Tests
         [Test]
         public void DeveLancarExcecaoQuandoValorDocumentoForInvalido()
         {
+            // Arrange
             var empresas = new List<Empresa>
             {
                 new Empresa
@@ -79,6 +83,7 @@ namespace AvaliacaoDotnet.Tests
                 }
             };
 
+            // Act & Assert
             var gerador = new GeradorArquivoBase();
 
             Assert.Throws<Exception>(() =>
@@ -88,6 +93,7 @@ namespace AvaliacaoDotnet.Tests
         [Test]
         public void DeveGerarArquivoLeiaute2()
         {
+            // Arrange
             var empresas = new List<Empresa>
             {
                 new Empresa
@@ -124,12 +130,14 @@ namespace AvaliacaoDotnet.Tests
                 }
             };
 
+            // Act
             var arquivo = Path.GetTempFileName();
 
             var gerador = new GeradorArquivoV2();
 
             gerador.Gerar(empresas, arquivo);
 
+            // Assert
             var texto = File.ReadAllText(arquivo);
 
             Assert.That(texto.Contains("03|1|Categoria"), Is.True);
